@@ -10,8 +10,7 @@ class GetSpaceMediaUseCase implements UseCase<SpaceMediaEntity, NoParams> {
   GetSpaceMediaUseCase(this.repository);
 
   @override
-  Future<Either<Failure, SpaceMediaEntity>> call(NoParams params) {
-    // TODO: implement call
-    throw UnimplementedError();
+  Future<Either<Failure, SpaceMediaEntity>> call(NoParams params) async{
+    return await repository.getSpaceMediaFromDate() ;
   }
 }
