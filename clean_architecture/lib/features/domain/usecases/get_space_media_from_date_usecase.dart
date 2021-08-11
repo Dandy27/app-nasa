@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 
 class GetSpaceMediaFromDateUseCase
     implements UseCase<SpaceMediaEntity, DateTime> {
-   ISpaceMediaRepository repository;
+  final  ISpaceMediaRepository repository;
 
   GetSpaceMediaFromDateUseCase({required this.repository});
 
