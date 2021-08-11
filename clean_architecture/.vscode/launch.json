@@ -11,6 +11,12 @@
             "program": "./test/"
         },
         {
+            "name": "Dart: Run all Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
+        },
+        {
             "name": "clean_architecture",
             "request": "launch",
             "type": "dart"

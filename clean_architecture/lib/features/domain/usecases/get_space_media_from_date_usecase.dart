@@ -5,13 +5,13 @@ import 'package:clean_architecture/features/domain/repositories/space_media_repo
 import 'package:dartz/dartz.dart';
 
 class GetSpaceMediaFromDateUseCase
-    implements UseCase<SpaceMediaEntity, NoParams> {
-  final ISpaceMediaRepository repository;
+    implements UseCase<SpaceMediaEntity, DateTime> {
+   ISpaceMediaRepository repository;
 
-  GetSpaceMediaFromDateUseCase(this.repository);
+  GetSpaceMediaFromDateUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, SpaceMediaEntity>> call(NoParams params) async {
-    return await repository.getSpaceMediaFromDate();
+  Future<Either<Failure, SpaceMediaEntity>> call(DateTime date) async {
+    return await repository.getSpaceMediaFromDate(date);
   }
 }

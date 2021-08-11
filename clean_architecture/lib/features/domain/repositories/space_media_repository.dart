@@ -3,5 +3,6 @@ import 'package:clean_architecture/features/domain/entities/space_media_entity.d
 import 'package:dartz/dartz.dart';
 
 abstract class ISpaceMediaRepository {
-  Future<Either<Failure, SpaceMediaEntity>> getSpaceMediaFromDate();
+  Future<Either<Failure, SpaceMediaEntity>> getSpaceMediaFromDate(
+      DateTime date);
 }
