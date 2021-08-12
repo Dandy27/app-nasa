@@ -11,11 +11,11 @@ class MockSpaceMediaRepository extends Mock implements ISpaceMediaRepository {}
 void main() {
   late GetSpaceMediaFromDateUseCase usecase;
   late ISpaceMediaRepository repository;
+
   setUp(() {
     repository = MockSpaceMediaRepository();
     usecase = GetSpaceMediaFromDateUseCase(repository: repository);
   });
-
   final tSpaceMedia = SpaceMediaEntity(
       copyright: 'copyright',
       date: 'date',
@@ -27,12 +27,25 @@ void main() {
       url: 'url');
 
   final tDate = DateTime(2021, 03, 27);
-  test('should get space media entity for a given from the repository',
-      () async {
-    when((repository.getSpaceMediaFromDate(tDate)) as dynamic)
-        .thenAnswer((_) async => Right<Failure, SpaceMediaEntity>(tSpaceMedia));
+  test('should get space media for given date from the repository', () async {
+    // Arrange
+    when(() => repository.getSpaceMediaFromDate(tDate))
+        .thenAnswer((_) async => Right(tSpaceMedia));
+    // Act
     final result = await usecase(tDate);
+//Assert
     expect(result, Right(tSpaceMedia));
-    verify((repository.getSpaceMediaFromDate(tDate)) as dynamic);
+    verify(() => repository.getSpaceMediaFromDate(tDate)).called(1);
+  });
+
+  test('should return a Failure when dont\'t succeed', () async {
+    // Arrange
+    when(() => repository.getSpaceMediaFromDate(tDate))
+        .thenAnswer((_) async => Left(ServerFailure()));
+    // Act
+    final result = await usecase(tDate);
+//Assert
+    expect(result, Left(ServerFailure()));
+    verify(() => repository.getSpaceMediaFromDate(tDate)).called(1);
   });
 }
