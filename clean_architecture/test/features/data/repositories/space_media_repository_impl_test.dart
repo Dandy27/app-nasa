@@ -37,18 +37,19 @@ void main() {
     final result = await repository.getSpaceMediaFromDate(tDate);
     //Asset
     expect(result, Right(tSpaceMediaModel));
-    verify(() => dataSource.getSpaceMediaFromDate(tDate));
+    verify(() => dataSource.getSpaceMediaFromDate(tDate)).called(1);
   });
 
   test(
       'should return a server failure  when calls the call to datasource is unsuccessful',
       () async {
     //Arrange
-    when(() => dataSource.getSpaceMediaFromDate(tDate)).thenThrow(ServerException());
+    when(() => dataSource.getSpaceMediaFromDate(tDate))
+        .thenThrow(ServerException());
     //Act
     final result = await repository.getSpaceMediaFromDate(tDate);
     //Assert
     expect(result, Left(ServerFailure()));
-    verify(() => dataSource.getSpaceMediaFromDate(tDate));
+    verify(() => dataSource.getSpaceMediaFromDate(tDate)).called(1);
   });
 }
