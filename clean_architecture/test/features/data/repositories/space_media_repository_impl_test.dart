@@ -1,3 +1,5 @@
+import 'package:clean_architecture/core/errors/exceptions.dart';
+import 'package:clean_architecture/core/errors/failures.dart';
 import 'package:clean_architecture/features/data/datasource/space_media_datasource.dart';
 import 'package:clean_architecture/features/data/models/space_media_model.dart';
 import 'package:clean_architecture/features/data/repositories/space_media_repository_impl.dart';
@@ -35,6 +37,18 @@ void main() {
     final result = await repository.getSpaceMediaFromDate(tDate);
     //Asset
     expect(result, Right(tSpaceMediaModel));
+    verify(() => dataSource.getSpaceMediaFromDate(tDate));
+  });
+
+  test(
+      'should return a server failure  when calls the call to datasource is unsuccessful',
+      () async {
+    //Arrange
+    when(() => dataSource.getSpaceMediaFromDate(tDate)).thenThrow(ServerException());
+    //Act
+    final result = await repository.getSpaceMediaFromDate(tDate);
+    //Assert
+    expect(result, Left(ServerFailure()));
     verify(() => dataSource.getSpaceMediaFromDate(tDate));
   });
 }
