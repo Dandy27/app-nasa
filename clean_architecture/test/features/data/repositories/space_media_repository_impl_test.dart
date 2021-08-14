@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     dataSource = MockSpaceMediaDataSource();
-    repository = SpaceMediaRepositoryImpl(datasource: dataSource);
+    repository = SpaceMediaRepositoryImpl( dataSource);
   });
 
   final tSpaceMediaModel = SpaceMediaModel(

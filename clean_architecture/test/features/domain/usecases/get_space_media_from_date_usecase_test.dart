@@ -14,7 +14,7 @@ void main() {
 
   setUp(() {
     repository = MockSpaceMediaRepository();
-    usecase = GetSpaceMediaFromDateUseCase(repository: repository);
+    usecase = GetSpaceMediaFromDateUseCase(repository);
   });
   final tSpaceMedia = SpaceMediaEntity(
       copyright: 'copyright',
@@ -47,5 +47,15 @@ void main() {
 //Assert
     expect(result, Left(ServerFailure()));
     verify(() => repository.getSpaceMediaFromDate(tDate)).called(1);
+  });
+
+    test('should return NullParamFailure when receives a null params', () async {
+    // Arrange
+    
+    // Act
+    final result = await usecase(null);
+//Assert
+    expect(result, Left(NullParamFailure()));
+    verifyNever(() => repository.getSpaceMediaFromDate(tDate));
   });
 }

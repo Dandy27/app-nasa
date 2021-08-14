@@ -8,7 +8,7 @@ import 'package:dartz/dartz.dart';
 class SpaceMediaRepositoryImpl implements ISpaceMediaRepository {
   final ISpaceMediaDataSource datasource;
 
-  SpaceMediaRepositoryImpl({required this.datasource});
+  SpaceMediaRepositoryImpl( this.datasource);
 
   @override
   Future<Either<Failure, SpaceMediaEntity>> getSpaceMediaFromDate(DateTime date) async{

@@ -7,12 +7,14 @@ import 'package:flutter_triple/flutter_triple.dart';
 
 class GetSpaceMediaFromDateUseCase
     implements UseCase<SpaceMediaEntity, DateTime> {
-   final ISpaceMediaRepository repository;
+  final ISpaceMediaRepository repository;
 
-  GetSpaceMediaFromDateUseCase({required this.repository});
+  GetSpaceMediaFromDateUseCase( this.repository);
 
   @override
-  Future<Either<Failure, SpaceMediaEntity>> call(DateTime date) async {
-    return await repository.getSpaceMediaFromDate(date);
+  Future<Either<Failure, SpaceMediaEntity>> call(DateTime? date) async {
+    return date != null
+        ? await repository.getSpaceMediaFromDate(date)
+        : Left(NullParamFailure());
   }
 }
